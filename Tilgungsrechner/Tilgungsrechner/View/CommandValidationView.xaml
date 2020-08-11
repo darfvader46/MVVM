@@ -1,0 +1,46 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Tilgungsrechner.View"
+             xmlns:ViewModel="clr-namespace:Tilgungsrechner.ViewModel" x:Class="Tilgungsrechner.View.CommandValidationView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance {x:Type ViewModel:CommandValidationViewModel}}">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="_Darlehen" Target="{Binding ElementName=txbxDarlehen, Mode=OneWay}" />
+            <TextBox x:Name="txbxDarlehen" Grid.Column="1" Grid.Row="0" Text="{Binding Darlehen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+            <Label Grid.Column="0" Grid.Row="1" Content="_Tilgungsrate (in %)" Target="{Binding ElementName=txbxTilgungsrate, Mode=OneWay}"  />
+            <TextBox x:Name="txbxTilgungsrate" Grid.Column="1" Grid.Row="1" Text="{Binding Tilgungsrate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+            <Label Grid.Column="0" Grid.Row="2" Content="_Zinsfuss (in %)" Target="{Binding ElementName=txbxZinsfuss, Mode=OneWay}"  />
+            <TextBox x:Name="txbxZinsfuss" Grid.Column="1" Grid.Row="2" Text="{Binding Zinsfuss, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="Annuität" />
+            <TextBlock x:Name="tbAnnuitaet" Grid.Column="0" Grid.Row="5" />
+        </Grid>
+        <Button DockPanel.Dock="Top" Content="Tilgungsplan _berechnen" Command="{Binding BerechnenCommand, Mode=OneWay}" />
+        <Button DockPanel.Dock="Top" Content="_Initialisieren" Command="{Binding InitialisierenCommand, Mode=OneWay}" />
+        <ListView DockPanel.Dock="Bottom" ItemsSource="{Binding Tilgungsplan}" IsSynchronizedWithCurrentItem="True">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Jahr" Width="70" DisplayMemberBinding="{Binding Jahr}" />
+                    <GridViewColumn Header="Restschuld am Anfang" Width="200" DisplayMemberBinding="{Binding Restschuld}" />
+                    <GridViewColumn Header="Zinsen" Width="80" DisplayMemberBinding="{Binding Zinsen}" />
+                    <GridViewColumn Header="Tilgung" Width="80" DisplayMemberBinding="{Binding Tilgung}" />
+                    <GridViewColumn Header="Annuität" Width="80" DisplayMemberBinding="{Binding Annuitaet}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+
+</UserControl>
